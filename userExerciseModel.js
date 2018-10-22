@@ -21,13 +21,20 @@ var getAllDocs = function() {
   });
 };
 
-var getUsers = function() {
-  var docs userExerciseModel.find({}, function(err, docs) {
-    return docs;
-  });
+var getAllUsers = function() {
+  var docs = getAllDocs();
+  var users = [];
+  for (let doc in docs) {
+      users.push({
+        name: doc.name,
+        id: doc._id
+      });
+  }
+  return users;
 };
 
 
 
 exports.UserExercise = userExerciseModel;
-// exports.findUrlByShortUrl = findUrlByShortUrl;
+exports.getAllDocs = getAllDocs;
+exports.getAllUsers = getAllUsers;
