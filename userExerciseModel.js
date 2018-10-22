@@ -9,8 +9,8 @@ var userExerciseSchema = new Schema({
          required: true},
   exercises: [{
     description: String,
-    duration: ,
-    date: req.body.date
+    duration: String,
+    date: String
   }]
 });
 var userExerciseModel = mongoose.model('userExercise', userExerciseSchema);

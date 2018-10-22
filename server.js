@@ -183,16 +183,36 @@ app.post("/api/exercise/add", function (req, res, next) {
   UserExercise.findById(req.body.userId, function(err, doc) {
     doc.exercises.push(newExercise);
     // res.json({doc: doc});
+
+// {
+//   "doc": {
+//     "_id": "5bce6075d6cfd26ff0b30757",
+//     "name": "New1",
+//     "__v": 0,
+//     "exercises": [
+//       {
+//         "description": "des",
+//         "duration": "dur",
+//         "date": "dat",
+//         "_id": "5bce6131794918714b22a2da"
+//       }
+//       ]
+//   }
+// }
+    
+    
+    
     // doc.save();
+    // res.json({doc: doc});
     // doc.save(function(err, doc) {
-    // doc.save(function(err, updatedDoc){
-    //   if (err) {return err;}
-    //   res.json({updatedDoc: updatedDoc});
-    // });
-    var promise = doc.save();
-    promise.then(function (doc) {
-      res.json({updatedDoc: doc});
+    doc.save(function(err, updatedDoc){
+      // if (err) {return err;}
+      res.json({updatedDoc: updatedDoc});
     });
+    // var promise = doc.save();
+    // promise.then(function(doc) {
+    //   res.json({updatedDoc: doc});
+    // });
     // res.json(data);
       // res.json({
       //   name: saved.name,
@@ -207,28 +227,15 @@ app.post("/api/exercise/add", function (req, res, next) {
 // {
 // "users": [
 // {
-// "name": "Simon Shephard",
-// "id": "5bcdfd7023961b42c186c4ea"
+// "name": "New1",
+// "id": "5bce6075d6cfd26ff0b30757"
 // },
 // {
-// "name": "New User 1996",
-// "id": "5bcdff28e426f6555040637a"
-// },
-// {
-// "name": "Other new user",
-// "id": "5bce0433499ebe7316e66d16"
-// },
-// {
-// "name": "new8768",
-// "id": "5bce095f1926497f35bea4f1"
-// },
-// {
-// "name": "new",
-// "id": "5bce3d66a1d44925fad7b535"
+// "name": "New2",
+// "id": "5bce6081d6cfd26ff0b30758"
 // }
 // ]
 // }
-
 
 
 // var findUrlByShortUrl = require('./myApp.js').findUrlByShortUrl;
