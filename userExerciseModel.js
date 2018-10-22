@@ -14,12 +14,19 @@ var userExerciseModel = mongoose.model('userExercise', userExerciseSchema);
 // NOTE: I beleive that the first param here should be singular
 // database collection will be plural lowercase - here database became "userexercises"
 
-// var findUrlByShortUrl = function(shortUrl, done) {
-//   UrlModel.find({shortUrl: shortUrl}, function(err, data) {
-//     if (err) return done(err);
-//     return done(null, data);
-//   });
-// };
+
+var getAllDocs = function() {
+  userExerciseModel.find({}, function(err, docs) {
+    return docs;
+  });
+};
+
+var getUsers = function() {
+  var docs userExerciseModel.find({}, function(err, docs) {
+    return docs;
+  });
+};
+
 
 
 exports.UserExercise = userExerciseModel;

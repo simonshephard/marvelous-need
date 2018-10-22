@@ -95,6 +95,19 @@ app.post("/api/exercise/new-user", function (req, res, next) {
 });
 
 
+// next allow get all users from api/exercise/users
+app.get("/api/exercise/users", function (req, res, next) {
+  
+  activities
+    .find()
+    .toArray()
+    .then((docs) => {
+      res.json(docs)
+    })
+
+});
+
+
 
 
 
