@@ -181,7 +181,11 @@ app.post("/api/exercise/add", function (req, res, next) {
   UserExercise.findById(req.body.userId, function(err, doc) {
     doc.exercises.push(newExercise);
     // doc.save();
-    res.json(doc);
+    doc.save(function(err, data) {
+      if (err) return err;
+      res.json(data);
+    });
+    // res.json(data);
       // res.json({
       //   name: saved.name,
       //   id: saved._id,
