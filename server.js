@@ -150,14 +150,41 @@ app.post("/api/exercise/add", function (req, res, next) {
   //   "date": "date"
   // }
   
-  // 3. now use data to update and return formatted information back
+  // 3. now use data to create exercise and return
+  // var newExercise = {
+  //   description: req.body.description,
+  //   duration: req.body.duration,
+  //   date: req.body.date
+  // };
+  // res.json(newExercise);
+  
+  
+  // 4. now update and return formatted information back
 //   *******DATE************
-  var newExercise = {
+
+  const newExercise = {
     description: req.body.description,
     duration: req.body.duration,
     date: req.body.date
   };
-  res.json(newExercise);
+  UserExercise.findById(req.body.userId, function(err, doc) {
+    // res.json(doc);
+    doc.exercises.push(newExercise);
+    
+    if (err) {
+      return err;
+    } else {
+      doc.exercises.push(newExercise);
+      doc.save(function(err, doc) {
+        if (err) {
+          return err;
+        } else {
+          res.json(doc);
+        }
+      });
+    }
+  });
+
   
   // var userExercise = UserExercise.findById(req.body.userId, function(err, doc) {
   //   if (err) {
