@@ -180,10 +180,12 @@ app.post("/api/exercise/add", function (req, res, next) {
   };
   UserExercise.findById(req.body.userId, function(err, doc) {
     doc.exercises.push(newExercise);
-    doc.save();
+    // doc.save();
     // doc.save(function(err, doc) {
+    doc.save(function(err, doc){
+      if (err) return err;
       res.json(doc);
-    // });
+    });
     // res.json(data);
       // res.json({
       //   name: saved.name,
