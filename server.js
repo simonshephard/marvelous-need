@@ -159,7 +159,19 @@ app.post("/api/exercise/add", function (req, res, next) {
   // res.json(newExercise);
   
   
-  // 4. now update and return formatted information back
+  // 4. now find add exercise and return
+  // const newExercise = {
+  //   description: req.body.description,
+  //   duration: req.body.duration,
+  //   date: req.body.date
+  // };
+  // UserExercise.findById(req.body.userId, function(err, doc) {
+  //   doc.exercises.push(newExercise);
+  //   res.json(doc);    
+  // });
+
+  
+  // 5. same but also save
 //   *******DATE************
 
   const newExercise = {
@@ -168,21 +180,13 @@ app.post("/api/exercise/add", function (req, res, next) {
     date: req.body.date
   };
   UserExercise.findById(req.body.userId, function(err, doc) {
-    // res.json(doc);
     doc.exercises.push(newExercise);
-    
-    if (err) {
-      return err;
-    } else {
-      doc.exercises.push(newExercise);
-      doc.save(function(err, doc) {
-        if (err) {
-          return err;
-        } else {
-          res.json(doc);
-        }
-      });
-    }
+    doc.save();
+    res.json({
+      name: doc.name,
+      id: doc._id,
+      exercises: doc.exercises
+    });
   });
 
   
