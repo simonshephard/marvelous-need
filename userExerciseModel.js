@@ -11,7 +11,8 @@ var userExerciseSchema = new Schema({
              default: []}
 });
 var userExerciseModel = mongoose.model('userExercise', userExerciseSchema);
-
+// NOTE: I beleive that the first param here should be singular
+// database collection will be plural lowercase - here database became "userexercises"
 
 // var findUrlByShortUrl = function(shortUrl, done) {
 //   UrlModel.find({shortUrl: shortUrl}, function(err, data) {

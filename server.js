@@ -52,37 +52,33 @@ app.get("/api/hello", function (req, res) {
 });
 
 // next set up Exercise model
-var Exercise = require('./exerciseModel.js').Exercise;
+var UserExercise = require('./userExerciseModel.js').UserExercise;
 app.post("/api/exercise/new-user", function (req, res, next) {
   
   // // 1. this gives body back directly from post without saving in db
   // res.json({ reqBody: req.body });
   
-  // 2. this creates model using schema and returns model
-  var newUrl = new UrlModel({
-    longUrl: req.body.url,
-    shortUrl: 1
+//   // 2. this creates model using schema and returns model
+//   // NOTE: it gives an id but still does not save in db
+//   var userExercise = new UserExercise({
+//     name: req.body.username,
+//   });
+//   res.json({ userExercise: userExercise });
+
+//   // {
+//   //   "userExercise": {
+//   //   "name": "Simon",
+//   //   "_id": "5bcdfc74a7ea3c3afebda94a",
+//   //   "exercises": []
+//   //   }
+//   // }
+  
+  // 3. same but also saves newUrl to db
+  var userExercise = new UserExercise({
+    name: req.body.username,
   });
-  res.json({ newUrl: newUrl });
-
-  // 3. this does same but increments the count - asynchronous so done in callback
-  // Url.count({}, function(err, count) {
-  //   var newUrl = new UrlModel({
-  //     longUrl: req.body.url,
-  //     shortUrl: count+1
-  //   });
-  //   res.json({ newUrl: newUrl });
-  // });
-
-  // 4. same but also saves newUrl to db
-  // Url.count({}, function(err, count) {
-  //   var newUrl = new UrlModel({
-  //     longUrl: req.body.url,
-  //     shortUrl: count+1
-  //   });
-  //   newUrl.save();
-  //   res.json({ newUrl: newUrl });
-  // });
+  userExercise.save();
+  res.json({ userExercise: userExercise });
   
   // // 5. same but just provide old and new url not _id
   // Url.count({}, function(err, count) {
