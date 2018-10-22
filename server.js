@@ -151,59 +151,55 @@ app.post("/api/exercise/add", function (req, res, next) {
   // }
   
   // 3. now use data to update and return formatted information back
+//   *******DATE************
   var newExercise = {
     description: req.body.description,
     duration: req.body.duration,
     date: req.body.date
   };
-  var userExercise = UserExercise.findById(req.body.userId, function(err, data) {
-    if (err) {
-      return err;
-    } else {
-      data.favoriteFoods.push(foodToAdd);
-      data.save(function(err, data) {
-        if (err) {
-          return done(err);
-        } else {
-          return done(null, data);
-        }
-      });
-    }
-  });
-
+  res.json(newExercise);
   
-  
-  
-  var userExercise = UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: ageToSet}, {new: true}, function(err, data) {
-    if (err) {
-      return done(err);
-    } else {
-      return done(null, data);
-    }
-  });
-  
-  
-  res.json({
-    _id: req.body.userId,
-    description: req.body.description,
-    duration: req.body.duration,
-    date: req.body.date
-  });
-
-  
-
-  // var userExercise = new UserExercise({
-  //   name: req.body.username,
-  // });
-  // userExercise.save();
-  // res.json({
-  //   name: userExercise.name,
-  //   id: userExercise._id
+  // var userExercise = UserExercise.findById(req.body.userId, function(err, doc) {
+  //   if (err) {
+  //     return err;
+  //   } else {
+  //     doc.exercises.push(newExercise);
+  //     doc.save(function(err, doc) {
+  //       if (err) {
+  //         return err;
+  //       } else {
+  //         res.json(doc);
+  //       }
+  //     });
+  //   }
   // });
     
 });
 
-
+// {
+// "users": [
+// {
+// "name": "Simon Shephard",
+// "id": "5bcdfd7023961b42c186c4ea"
+// },
+// {
+// "name": "New User 1996",
+// "id": "5bcdff28e426f6555040637a"
+// },
+// {
+// "name": "Other new user",
+// "id": "5bce0433499ebe7316e66d16"
+// },
+// {
+// "name": "new8768",
+// "id": "5bce095f1926497f35bea4f1"
+// },
+// {
+// "name": "new",
+// "id": "5bce3d66a1d44925fad7b535"
+// }
+// ]
+// }
 
 
 
