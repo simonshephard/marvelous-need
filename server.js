@@ -152,6 +152,22 @@ app.post("/api/exercise/add", function (req, res, next) {
 
 
 
+// var findUrlByShortUrl = require('./myApp.js').findUrlByShortUrl;
+// app.get("/api/shorturl/:shortUrl", function (req, res) {
+//   findUrlByShortUrl(req.params.shortUrl, function(err, data) {
+//     // res.json({
+//     //   return: data,
+//     //   url: data[0].longUrl,
+//     //   parsed: url.parse(data[0].longUrl),
+//     //   href: url.parse(data[0].longUrl).href
+//     // });
+//     // res.redirect(url.parse(data[0].longUrl).href);
+//     res.redirect(data[0].longUrl);
+//   });
+// });
+
+
+
 // Not found middleware
 app.use((req, res, next) => {
   return next({status: 404, message: 'not found'})
