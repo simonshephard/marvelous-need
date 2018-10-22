@@ -96,10 +96,14 @@ app.post("/api/exercise/new-user", function (req, res, next) {
 
 
 // next allow get all users from api/exercise/users
-var getAllUsers = require('./userExerciseModel.js').getAllUsers;
-var getAllDocs = require('./userExerciseModel.js').getAllDocs;
+// NEED TO SOLVE ASYNCHRONICITY BEFORE USING FUN
+// var getAllUsers = require('./userExerciseModel.js').getAllUsers;
+// var getAllDocs = require('./userExerciseModel.js').getAllDocs;
 app.get("/api/exercise/users", function (req, res, next) {
-  res.json({docs: getAllDocs()});
+    UserExercise.find({}, function(err, docs) {
+      res.json({ docs: docs });
+    });
+  // res.json({docs: getAllDocs()});
 });
 
 
