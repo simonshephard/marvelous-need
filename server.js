@@ -135,6 +135,15 @@ app.post("/api/exercise/add", function (req, res, next) {
   //   }
   // }
   
+  // 2. same but return formatted information back
+  res.json({
+    _id: req.body.userId,
+    _id: req.body.userId,
+    _id: req.body.userId,
+    _id: req.body.userId,
+    
+  });
+  
   
   
   // var userExercise = new UserExercise({
