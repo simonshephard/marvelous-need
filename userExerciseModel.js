@@ -15,12 +15,12 @@ var userExerciseModel = mongoose.model('userExercise', userExerciseSchema);
 // database collection will be plural lowercase - here database became "userexercises"
 
 
+// NEED TO SOLVE ASYNCHRONICITY BEFORE USING FUNCTIONS INDIRECTLY TO GET DATA******
 var getAllDocs = function() {
   userExerciseModel.find({}, function(err, docs) {
     return docs;
   });
 };
-
 var getAllUsers = function() {
   var docs = getAllDocs();
   var users = [];

@@ -96,14 +96,21 @@ app.post("/api/exercise/new-user", function (req, res, next) {
 
 
 // next allow get all users from api/exercise/users
-// NEED TO SOLVE ASYNCHRONICITY BEFORE USING FUN
+// NEED TO SOLVE ASYNCHRONICITY BEFORE USING FUNCTIONS INDIRECTLY TO GET DATA******
 // var getAllUsers = require('./userExerciseModel.js').getAllUsers;
 // var getAllDocs = require('./userExerciseModel.js').getAllDocs;
 app.get("/api/exercise/users", function (req, res, next) {
     UserExercise.find({}, function(err, docs) {
-      res.json({ docs: docs });
+      const users = [];
+      for (let doc : docs) {
+        users.push({
+          name: doc.name,
+          id: doc._id
+        });
+      }
+      // res.json({ docs: docs }); // docs is an array of userExercise objects      
+      res.json({ users: users });
     });
-  // res.json({docs: getAllDocs()});
 });
 
 
