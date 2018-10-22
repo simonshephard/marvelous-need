@@ -136,14 +136,19 @@ app.post("/api/exercise/add", function (req, res, next) {
   // }
   
   // 2. same but return formatted information back
-  res.json({
-    _id: req.body.userId,
-    _id: req.body.userId,
-    _id: req.body.userId,
-    _id: req.body.userId,
-    
-  });
+  // res.json({
+  //   _id: req.body.userId,
+  //   description: req.body.description,
+  //   duration: req.body.duration,
+  //   date: req.body.date
+  // });
   
+  // {
+  //   "_id": "id",
+  //   "description": "desc",
+  //   "duration": "dur",
+  //   "date": "date"
+  // }
   
   
   // var userExercise = new UserExercise({
