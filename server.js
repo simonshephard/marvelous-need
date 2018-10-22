@@ -150,7 +150,7 @@ app.post("/api/exercise/add", function (req, res, next) {
   //   "date": "date"
   // }
   
-  
+
   // var userExercise = new UserExercise({
   //   name: req.body.username,
   // });
