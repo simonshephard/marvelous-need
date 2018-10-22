@@ -18,6 +18,16 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
+// first check on API endpoint... 
+app.get("/api/hello", function (req, res) {
+  res.json({greeting: 'hello API'});
+});
+
+
+
+
+
+
 
 // Not found middleware
 app.use((req, res, next) => {
