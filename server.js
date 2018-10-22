@@ -180,11 +180,10 @@ app.post("/api/exercise/add", function (req, res, next) {
   };
   UserExercise.findById(req.body.userId, function(err, doc) {
     doc.exercises.push(newExercise);
-    // doc.save();
-    doc.save(function(err, data) {
-      if (err) return err;
-      res.json(data);
-    });
+    doc.save();
+    // doc.save(function(err, doc) {
+      res.json(doc);
+    // });
     // res.json(data);
       // res.json({
       //   name: saved.name,
@@ -193,21 +192,6 @@ app.post("/api/exercise/add", function (req, res, next) {
       // });
   });
 
-  
-  // var userExercise = UserExercise.findById(req.body.userId, function(err, doc) {
-  //   if (err) {
-  //     return err;
-  //   } else {
-  //     doc.exercises.push(newExercise);
-  //     doc.save(function(err, doc) {
-  //       if (err) {
-  //         return err;
-  //       } else {
-  //         res.json(doc);
-  //       }
-  //     });
-  //   }
-  // });
     
 });
 
