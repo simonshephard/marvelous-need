@@ -185,9 +185,13 @@ app.post("/api/exercise/add", function (req, res, next) {
     // res.json({doc: doc});
     // doc.save();
     // doc.save(function(err, doc) {
-    doc.save(function(err, updatedDoc){
-      if (err) {return err;}
-      res.json({updatedDoc: updatedDoc});
+    // doc.save(function(err, updatedDoc){
+    //   if (err) {return err;}
+    //   res.json({updatedDoc: updatedDoc});
+    // });
+    var promise = doc.save();
+    promise.then(function (doc) {
+      res.json({updatedDoc: doc});
     });
     // res.json(data);
       // res.json({

@@ -7,8 +7,11 @@ var Schema = mongoose.Schema;
 var userExerciseSchema = new Schema({
   name: {type: String,
          required: true},
-  exercises: {type: Array,
-             default: []}
+  exercises: [{
+    description: String,
+    duration: ,
+    date: req.body.date
+  }]
 });
 var userExerciseModel = mongoose.model('userExercise', userExerciseSchema);
 // NOTE: I beleive that the first param here should be singular
