@@ -171,9 +171,8 @@ app.post("/api/exercise/add", function (req, res, next) {
   // });
 
   
-  // 5. same but also save
 //   *******DATE************
-
+  // 5. same but also save
   const newExercise = {
     description: req.body.description,
     duration: req.body.duration,
@@ -181,7 +180,7 @@ app.post("/api/exercise/add", function (req, res, next) {
   };
   UserExercise.findById(req.body.userId, function(err, doc) {
     doc.exercises.push(newExercise);
-    doc.save();
+    // doc.save();
     res.json(doc);
       // res.json({
       //   name: saved.name,
