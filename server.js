@@ -150,6 +150,47 @@ app.post("/api/exercise/add", function (req, res, next) {
   //   "date": "date"
   // }
   
+  // 3. now use data to update and return formatted information back
+  var newExercise = {
+    description: req.body.description,
+    duration: req.body.duration,
+    date: req.body.date
+  };
+  var userExercise = UserExercise.findById(req.body.userId, function(err, data) {
+    if (err) {
+      return err;
+    } else {
+      data.favoriteFoods.push(foodToAdd);
+      data.save(function(err, data) {
+        if (err) {
+          return done(err);
+        } else {
+          return done(null, data);
+        }
+      });
+    }
+  });
+
+  
+  
+  
+  var userExercise = UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: ageToSet}, {new: true}, function(err, data) {
+    if (err) {
+      return done(err);
+    } else {
+      return done(null, data);
+    }
+  });
+  
+  
+  res.json({
+    _id: req.body.userId,
+    description: req.body.description,
+    duration: req.body.duration,
+    date: req.body.date
+  });
+
+  
 
   // var userExercise = new UserExercise({
   //   name: req.body.username,
