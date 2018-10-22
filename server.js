@@ -51,76 +51,47 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-// next set up Exercise model
+// next set up UserExercise model
 var UserExercise = require('./userExerciseModel.js').UserExercise;
+
+// next allow create new user
 app.post("/api/exercise/new-user", function (req, res, next) {
   
-  // // 1. this gives body back directly from post without saving in db
+  // 1. this gives body back directly from post without saving in db
   // res.json({ reqBody: req.body });
   
-//   // 2. this creates model using schema and returns model
-//   // NOTE: it gives an id but still does not save in db
-//   var userExercise = new UserExercise({
-//     name: req.body.username,
-//   });
-//   res.json({ userExercise: userExercise });
+  // 2. this creates model using schema and returns model
+  // NOTE: it gives an id but still does not save in db
+  // var userExercise = new UserExercise({
+  //   name: req.body.username,
+  // });
+  // res.json({ userExercise: userExercise });
 
-//   // {
-//   //   "userExercise": {
-//   //   "name": "Simon",
-//   //   "_id": "5bcdfc74a7ea3c3afebda94a",
-//   //   "exercises": []
-//   //   }
-//   // }
+  // {
+  //   "userExercise": {
+  //   "name": "Simon",
+  //   "_id": "5bcdfc74a7ea3c3afebda94a",
+  //   "exercises": []
+  //   }
+  // }
   
-  // 3. same but also saves newUrl to db
+  // 3. same but also saves to db
+  // var userExercise = new UserExercise({
+  //   name: req.body.username,
+  // });
+  // userExercise.save();
+  // res.json({ userExercise: userExercise });
+  
+  // 4. same but just provides required {name, _id}
   var userExercise = new UserExercise({
     name: req.body.username,
   });
   userExercise.save();
-  res.json({ userExercise: userExercise });
-  
-  // // 5. same but just provide old and new url not _id
-  // Url.count({}, function(err, count) {
-  //   var newUrl = new UrlModel({
-  //     longUrl: req.body.url,
-  //     shortUrl: count+1
-  //   });
-  //   newUrl.save();
-  //   res.json({
-  //     original_url: newUrl.longUrl,
-  //     short_url: newUrl.shortUrl
-  //   });
-  // });
-  
-  // // 6. same but with check on valid url
-  // const postedUrl = url.parse(req.body.url);
-  // dns.lookup(postedUrl.hostname, (err, address, family) => {
-  //   if (!address) {
-  //     res.json({
-  //       // address: address,
-  //       // url: req.body.url,
-  //       // errorType: err,
-  //       error: "invalid URL"
-  //     });
-  //   } else {
-  //     UrlModel.count({}, function(err, count) {
-  //       var newUrl = new UrlModel({
-  //         longUrl: req.body.url,
-  //         shortUrl: count+1
-  //       });
-  //       newUrl.save();
-  //       res.json({
-  //         // lookup: postedUrl.hostname, 
-  //         // address: address,
-  //         // family: family,
-  //         original_url: newUrl.longUrl,
-  //         short_url: newUrl.shortUrl
-  //       });
-  //     });      
-  //   }
-  // });
-  
+  res.json({
+    name: userExercise.name,
+    id: userExercise._id
+  });
+    
 });
 
 
