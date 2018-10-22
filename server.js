@@ -96,24 +96,57 @@ app.post("/api/exercise/new-user", function (req, res, next) {
 
 
 // next allow get all users from api/exercise/users
+
 // NEED TO SOLVE ASYNCHRONICITY BEFORE USING FUNCTIONS INDIRECTLY TO GET DATA******
 // var getAllUsers = require('./userExerciseModel.js').getAllUsers;
 // var getAllDocs = require('./userExerciseModel.js').getAllDocs;
+
 app.get("/api/exercise/users", function (req, res, next) {
     UserExercise.find({}, function(err, docs) {
+      // res.json({ docs: docs }); // docs is an array of userExercise objects      
       const users = [];
-      for (let doc : docs) {
+      for (let doc of docs) {
         users.push({
           name: doc.name,
           id: doc._id
         });
       }
-      // res.json({ docs: docs }); // docs is an array of userExercise objects      
       res.json({ users: users });
     });
 });
 
 
+// next allow add exercises to users - update users
+// POST /api/exercise/add
+// posting form data userId(_id), description, duration, and optionally date to /api/exercise/add. If no date supplied it will use current date.
+// Returned will the the user object with also with the exercise fields added.
+
+app.post("/api/exercise/add", function (req, res, next) {
+  
+  // 1. first just return posted information back
+  // res.json({ reqBody: req.body });
+
+  // {
+  //   "reqBody": {
+  //     "userId": "id",
+  //     "description": "desc",
+  //     "duration": "dur",
+  //     "date": "date"
+  //   }
+  // }
+  
+  
+  
+  // var userExercise = new UserExercise({
+  //   name: req.body.username,
+  // });
+  // userExercise.save();
+  // res.json({
+  //   name: userExercise.name,
+  //   id: userExercise._id
+  // });
+    
+});
 
 
 
