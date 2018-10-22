@@ -135,6 +135,7 @@ app.post("/api/exercise/add", function (req, res, next) {
   //   }
   // }
   
+  
   // 2. same but return formatted information back
   // res.json({
   //   _id: req.body.userId,
@@ -149,6 +150,7 @@ app.post("/api/exercise/add", function (req, res, next) {
   //   "duration": "dur",
   //   "date": "date"
   // }
+
   
   // 3. now use data to create exercise and return
   // var newExercise = {
