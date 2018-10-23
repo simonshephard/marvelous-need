@@ -261,6 +261,12 @@ app.post("/api/exercise/add", function (req, res) {
 });
 
 
+// next allow query of users' exercise logs: GET /api/exercise/log?{userId}[&from][&to][&limit]
+// { } = required, [ ] = optional
+// from, to = dates (yyyy-mm-dd); limit = number
+// Return will be the user object with added array log and count (total exercise count).
+
+
 
 
 
