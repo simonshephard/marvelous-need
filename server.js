@@ -182,30 +182,27 @@ app.post("/api/exercise/add", function (req, res) {
   };
   console.log("newExercise:", newExercise);
 
-  // var friend = {"firstName": req.body.fName, "lastName": req.body.lName};
-  // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}});
-  // UserExercise.update({ _id: req.body.userId }, {$push: {exercises: newExercise}});
-
-// person.friends.push(friend);
-// person.save(done);
-
-// PersonModel.update(
-//     { _id: person._id }, 
-//     { $push: { friends: friend } },
-//     done
-// );
   
+  UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
+      if(err) {console.log(err);}
+      console.log("updatedDocAfterUpdate:", updatedDoc);
+    });
+    console.log("docAfterUpdate:", doc);
+  });
+
+  
+
 // {
 // "name": "New2",
 // "id": "5bcedb74f945f90c00f91d78"
 // }
   
-  UserExercise.findById(req.body.userId, function(err, doc) {
+//   UserExercise.findById(req.body.userId, function(err, doc) {
     
-    console.log("docStart:", doc);
+//     console.log("docStart:", doc);
     
-    doc.exercises.push(newExercise);
-    console.log("docAfterPush:", doc);
+//     doc.exercises.push(newExercise);
+//     console.log("docAfterPush:", doc);
     
     // doc.update((err, updatedDoc) => {
     //   console.log("updatedDocAfterUpdate:", updatedDoc);
@@ -213,15 +210,27 @@ app.post("/api/exercise/add", function (req, res) {
     // console.log("docAfterUpdate:", doc);    
     // // updatedDocAfterUpdate: { ok: 0, n: 0, nModified: 0 }
     
-    doc.save((err, updatedDoc) => {
-      if(err) {console.log(err);}
-      console.log("updatedDocAfterUpdate:", updatedDoc);
-    });
-    console.log("docAfterUpdate:", doc);    
-    // updatedDocAfterUpdate: undefined
-
+//     doc.save((err, updatedDoc) => {
+//       if(err) {console.log(err);}
+//       console.log("updatedDocAfterUpdate:", updatedDoc);
+//     });
+//     console.log("docAfterUpdate:", doc);
+//     // { MongoError: Unknown modifier: $pushAll
+//     //     at Function.MongoError.create (/rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb-core/2.1.18/node_modules/mongodb-core/lib/error.js:31:11)
+//     //     at toError (/rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb/2.2.34/node_modules/mongodb/lib/utils.js:139:22)
+//     //     at /rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb/2.2.34/node_modules/mongodb/lib/collection.js:1059:67
+//     //     at /rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb-core/2.1.18/node_modules/mongodb-core/lib/connection/pool.js:469:18
+//     //     at _combinedTickCallback (internal/process/next_tick.js:67:7)
+//     //     at process._tickCallback (internal/process/next_tick.js:98:9)
+//     //   name: 'MongoError',
+//     //   message: 'Unknown modifier: $pushAll',
+//     //   driver: true,
+//     //   index: 0,
+//     //   code: 9,
+//     //   errmsg: 'Unknown modifier: $pushAll' }
+//     // updatedDocAfterUpdate: undefined
   
-  });
+//   });
     
 
 // {
@@ -241,26 +250,7 @@ app.post("/api/exercise/add", function (req, res) {
 // }
     
     
-    
-    // doc.save();
-    // res.json({doc: doc});
-    // doc.save(function(err, doc) {
-    // doc.save(function(err, updatedDoc){
-      // if (err) {return err;}
-    //   res.json({updatedDoc: updatedDoc});
-    // });
-    // var promise = doc.save();
-    // promise.then(function(doc) {
-    //   res.json({updatedDoc: doc});
-    // });
-    // res.json(data);
-      // res.json({
-      //   name: saved.name,
-      //   id: saved._id,
-      //   exercises: saved.exercises
-      // });
-//   });
-
+  
     
 });
 
