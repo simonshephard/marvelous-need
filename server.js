@@ -175,9 +175,9 @@ app.post("/api/exercise/add", function (req, res) {
 
   
   // 5. same but also save and use current date if none supplied
-  let dateValue = todaysdate.
-  if (req.body.date == "") {
-  }
+  let dateValue = todaysdate();
+  if (req.body.date) {dateValue = req.body.date;}
+  
   const newExercise = {
     description: req.body.description,
     duration: req.body.duration,
