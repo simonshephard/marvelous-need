@@ -271,15 +271,19 @@ app.get("/api/exercise/log", function (req, res, next) {
   var to = req.query.to;
   var limit = req.query.limit;
 
-// userForTesting: 5bcedb74f945f90c00f91d78
+//userForTesting: 5bcedb74f945f90c00f91d78
 //https://marvelous-need.glitch.me/api/exercise/log?userId=5bcedb74f945f90c00f91d78
 //https://marvelous-need.glitch.me/api/exercise/log?userId=5bcedb74f945f90c00f91d78&limit=2
-  
+//https://marvelous-need.glitch.me/api/exercise/log?userId=5bcedb74f945f90c00f91d78&from=2018-09-01
+//https://marvelous-need.glitch.me/api/exercise/log?userId=5bcedb74f945f90c00f91d78&to=2018-10-01
+
   UserExercise.find({_id: id}, function(err, docs) {
     console.log("exercises:", docs[0].exercises);
     docs = docs[0].exercises;
     console.log("limit:", limit);    
-    if (limit) {docs = docs.slice(0, limit);}
+    if (from) {docs = docs.filter((doc) => doc.date >= from)};
+    if (to) {docs = docs.filter((doc) => doc.date <= to)};
+    if (limit && limit < docs.length) {docs = docs.slice(0, limit);}
     res.json({docs: docs});
     
     // var people = Person.find({favoriteFoods: foodToSearch})
