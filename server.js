@@ -182,13 +182,13 @@ app.post("/api/exercise/add", function (req, res) {
   };
   console.log("newExercise:", newExercise);
 
-  // THIS FAILS
+  // THIS FAILS - problem with $push
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
   
-  // THIS SUCCEEDS BUT DOES NOT ADD
+  // THIS SUCCEEDS BUT REPLACES EXERCISE INSTEAD OF ADDING
   UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: newExercise}, function(err, doc) {
     if(err) {console.log(err);}
-    console.log("updatedDocAfterUpdate:", doc);
+    console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
     res.json(doc);
   });
 
@@ -206,6 +206,7 @@ app.post("/api/exercise/add", function (req, res) {
 //     doc.exercises.push(newExercise);
 //     console.log("docAfterPush:", doc);
     
+    // THIS DOES NOT UPDATE THE DB CORRECTLY
     // doc.update((err, updatedDoc) => {
     //   console.log("updatedDocAfterUpdate:", updatedDoc);
     // });
@@ -217,6 +218,7 @@ app.post("/api/exercise/add", function (req, res) {
 //       console.log("updatedDocAfterUpdate:", updatedDoc);
 //     });
 //     console.log("docAfterUpdate:", doc);
+//     // THIS SUGGESTS THE PROBLEM WITH $push stops the save method being used to update
 //     // { MongoError: Unknown modifier: $pushAll
 //     //     at Function.MongoError.create (/rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb-core/2.1.18/node_modules/mongodb-core/lib/error.js:31:11)
 //     //     at toError (/rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb/2.2.34/node_modules/mongodb/lib/utils.js:139:22)
