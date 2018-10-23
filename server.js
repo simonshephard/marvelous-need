@@ -174,7 +174,7 @@ app.post("/api/exercise/add", function (req, res) {
   // });
 
   
-//   *******DATE************
+  // *******DATE************
   // 5. same but also save
   const newExercise = {
     description: req.body.description,
@@ -184,22 +184,24 @@ app.post("/api/exercise/add", function (req, res) {
   console.log("newExercise:", newExercise);
   
   
-  // THIS FAILS - problem with $push
+  // FAILS - problem with $push
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {"$push": {exercises: newExercise}}, {new: true}, function(err, doc) {
   
-  // THIS SUCCEEDS BUT REPLACES EXERCISE INSTEAD OF ADDING
+  // SUCCEEDS BUT REPLACES EXERCISE INSTEAD OF ADDING
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: newExercise}, {new: true}, function(err, doc) {
   //   if(err) {console.log("err:", err);}
   //   console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
   //   res.json(doc);
   // });
   
-  // THIS FAILS - DOES NOT UPDATE AND DOES NOT RETURN
+  // FAILS - DOES NOT UPDATE AND DOES NOT RETURN
   // UserExercise.update({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
   //   if(err) {console.log(err);}
   //   console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE UNLESS SPECIFY NEW
   //   res.json(doc);
   // });
+  
+  // SEEMS TO BE ISSUE WITH $PUSH EITHER USED EXPLICITLY OR UNDERLYING SOME OF UPDATE METHODS
 
   UserExercise.findOne({_id: req.body.userId}, function(err, doc) {
     if(err) {console.log(err);}
@@ -207,84 +209,27 @@ app.post("/api/exercise/add", function (req, res) {
     console.log("retreived:", doc.exercises);
     doc.exercises.push(newExercise);
     console.log("updated:", doc);
+    // FAILS
     // doc.save();
+    // FAILS
     // doc.update();
+    // FAILS
     // UserExercise.update({_id: req.body.userId}, {exercises: doc});
     // console.log("docAfterSave:", doc);
     // res.json(doc);
     
-    UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: doc}, {new: true}, function(err, updatedDoc) {
+    UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: doc.exercises}, {new: true}, function(err, updatedDoc) {
       if(err) {console.log("err:", err);}
+      console.log("updatedAndSaved?:", updatedDoc);
       res.json(updatedDoc);
     });
 
-  });
-
-  
-
-// {
-// "name": "New2",
-// "id": "5bcedb74f945f90c00f91d78"
-// }
-  
-//   UserExercise.findById(req.body.userId, function(err, doc) {
-    
-//     console.log("docStart:", doc);
-    
-//     doc.exercises.push(newExercise);
-//     console.log("docAfterPush:", doc);
-    
-    // THIS DOES NOT UPDATE THE DB CORRECTLY
-    // doc.update((err, updatedDoc) => {
-    //   console.log("updatedDocAfterUpdate:", updatedDoc);
-    // });
-    // console.log("docAfterUpdate:", doc);    
-    // // updatedDocAfterUpdate: { ok: 0, n: 0, nModified: 0 }
-    
-//     doc.save((err, updatedDoc) => {
-//       if(err) {console.log(err);}
-//       console.log("updatedDocAfterUpdate:", updatedDoc);
-//     });
-//     console.log("docAfterUpdate:", doc);
-//     // THIS SUGGESTS THE PROBLEM WITH $push stops the save method being used to update
-//     // { MongoError: Unknown modifier: $pushAll
-//     //     at Function.MongoError.create (/rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb-core/2.1.18/node_modules/mongodb-core/lib/error.js:31:11)
-//     //     at toError (/rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb/2.2.34/node_modules/mongodb/lib/utils.js:139:22)
-//     //     at /rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb/2.2.34/node_modules/mongodb/lib/collection.js:1059:67
-//     //     at /rbd/pnpm-volume/d8ea260b-7c11-40a9-845f-f21ddde1d877/node_modules/.registry.npmjs.org/mongodb-core/2.1.18/node_modules/mongodb-core/lib/connection/pool.js:469:18
-//     //     at _combinedTickCallback (internal/process/next_tick.js:67:7)
-//     //     at process._tickCallback (internal/process/next_tick.js:98:9)
-//     //   name: 'MongoError',
-//     //   message: 'Unknown modifier: $pushAll',
-//     //   driver: true,
-//     //   index: 0,
-//     //   code: 9,
-//     //   errmsg: 'Unknown modifier: $pushAll' }
-//     // updatedDocAfterUpdate: undefined
-  
-//   });
-    
-
-    
-    
+  });    
   
     
 });
 
 
-// var findUrlByShortUrl = require('./myApp.js').findUrlByShortUrl;
-// app.get("/api/shorturl/:shortUrl", function (req, res) {
-//   findUrlByShortUrl(req.params.shortUrl, function(err, data) {
-//     // res.json({
-//     //   return: data,
-//     //   url: data[0].longUrl,
-//     //   parsed: url.parse(data[0].longUrl),
-//     //   href: url.parse(data[0].longUrl).href
-//     // });
-//     // res.redirect(url.parse(data[0].longUrl).href);
-//     res.redirect(data[0].longUrl);
-//   });
-// });
 
 
 
