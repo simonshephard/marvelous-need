@@ -85,6 +85,7 @@ app.post("/api/exercise/new-user", function (req, res, next) {
   // 4. same but just provides required {name, _id}
   var userExercise = new UserExercise({
     name: req.body.username,
+    exercises: []
   });
   userExercise.save();
   res.json({
@@ -183,7 +184,7 @@ app.post("/api/exercise/add", function (req, res, next) {
 
   // var friend = {"firstName": req.body.fName, "lastName": req.body.lName};
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}});
-  UserExercise.update({_id: req.body.userId}, {$push: {exercises: newExercise}});
+  // UserExercise.update({ _id: req.body.userId }, {$push: {exercises: newExercise}});
 
 // person.friends.push(friend);
 // person.save(done);
@@ -194,11 +195,15 @@ app.post("/api/exercise/add", function (req, res, next) {
 //     done
 // );
   
-//   UserExercise.findById(req.body.userId, function(err, doc) {
+  UserExercise.findById(req.body.userId, function(err, doc) {
     
     
-//     doc.exercises.push(newExercise);
-    // res.json({doc: doc});
+    doc.exercises.push(newExercise);
+    doc.save(function (err) {
+      if (err) {return err;}
+      res.json({doc: doc});
+    });
+    
 
 // {
 //   "doc": {
