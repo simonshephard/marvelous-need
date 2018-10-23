@@ -176,21 +176,29 @@ app.post("/api/exercise/add", function (req, res) {
   // user: 5bcedb74f945f90c00f91d78
   
   // 5. same but also save and use current date if none supplied
+  console.log("req.body.date:", req.body.date);
+  let date = new Date();  
+  if (req.body.date) {
+    date = new Date(req.body.date);
+  } // use current if invalid 
+  
   let date = new Date(req.body.date);
-  if (!date) {date = new Date();} // use current if invalid
+  console.log("date:", date);
   
   var d = date.getDate();
-  var m = date.getMonth() + 1; //Month from 0 to 11
+  console.log("d:", d);
+  var m = date.getMonth() + 1;
+  console.log("m:", m);
   var y = date.getFullYear();
-  return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
-  let dateString = date.getFullYear()
+  console.log("y:", y);
+  let dateString = '' + y + '-' + (m<10 ? '0'+m : m) + '-' + (d<10 ? '0'+d : d);
   
   
   
   const newExercise = {
     description: req.body.description,
     duration: req.body.duration,
-    date: date.format("yyyy-mm-dd")
+    date: dateString
   };
   console.log("newExercise:", newExercise);
   
