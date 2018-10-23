@@ -202,11 +202,15 @@ app.post("/api/exercise/add", function (req, res) {
   
   UserExercise.findById(req.body.userId, function(err, doc) {
     
-  console.log("docStart:", doc);
+    console.log("docStart:", doc);
     
     doc.exercises.push(newExercise);
     console.log("docAfterPush:", doc);
-  doc.save(function (err) {
+    
+    
+    
+    
+    doc.save(function (err) {
       if (err) {return err;}
       res.json({doc: doc});
     });
