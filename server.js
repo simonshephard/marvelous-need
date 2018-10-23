@@ -207,16 +207,19 @@ app.post("/api/exercise/add", function (req, res) {
     doc.exercises.push(newExercise);
     console.log("docAfterPush:", doc);
     
-    doc.update((err, updatedDoc) => {
+    // doc.update((err, updatedDoc) => {
+    //   console.log("updatedDocAfterUpdate:", updatedDoc);
+    // });
+    // console.log("docAfterUpdate:", doc);    
+    // // updatedDocAfterUpdate: { ok: 0, n: 0, nModified: 0 }
+    
+    doc.save((err, updatedDoc) => {
+      if(err) {console.log(err);}
       console.log("updatedDocAfterUpdate:", updatedDoc);
     });
-    console.log("docAfterUpdate:", doc);
-    
-    
-    // doc.save(function (err) {
-    //   if (err) {return err;}
-    //   res.json({doc: doc});
-    // });
+    console.log("docAfterUpdate:", doc);    
+    // updatedDocAfterUpdate: undefined
+
   
   });
     
