@@ -182,12 +182,14 @@ app.post("/api/exercise/add", function (req, res) {
   };
   console.log("newExercise:", newExercise);
 
+  // THIS FAILS
+  // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
   
-  UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
-      if(err) {console.log(err);}
-      console.log("updatedDocAfterUpdate:", updatedDoc);
-    });
-    console.log("docAfterUpdate:", doc);
+  // THIS SUCCEEDS BUT DOES NOT ADD
+  UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: newExercise}, function(err, doc) {
+    if(err) {console.log(err);}
+    console.log("updatedDocAfterUpdate:", doc);
+    res.json(doc);
   });
 
   
