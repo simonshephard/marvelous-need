@@ -42,7 +42,7 @@ var getAllUsers = function() {
 };
 
 
-exports.Exercise = exerciseSchema;
+
 exports.UserExercise = userExerciseModel;
 exports.getAllDocs = getAllDocs;
 exports.getAllUsers = getAllUsers;

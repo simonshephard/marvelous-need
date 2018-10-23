@@ -204,10 +204,12 @@ app.post("/api/exercise/add", function (req, res) {
   UserExercise.findOne({_id: req.body.userId}, function(err, doc) {
     if(err) {console.log(err);}
     console.log("docBeforeUpdate:", doc);
-    console.log("test:", doc.exercises);
-    doc.exercises.push(newExercise);
+    console.log("retreived:", doc.exercises);
+    var updated = doc.exercises.push(newExercise);
+    console.log("updated:", updated);
     // doc.save();
-    doc.update();
+    // doc.update();
+    UserExercise.update({_id: req.body.userId}, {exercises: updated});
     console.log("docAfterSave:", doc);
     res.json(doc);
   });
