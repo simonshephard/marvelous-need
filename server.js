@@ -266,6 +266,27 @@ app.post("/api/exercise/add", function (req, res) {
 // from, to = dates (yyyy-mm-dd); limit = number
 // Return will be the user object with added array log and count (total exercise count).
 
+app.get("/api/exercise/log", function (req, res, next) {
+  var userId = req.query.userId;
+  var from = req.query.from;
+  var to = req.query.to;
+  var limit = req.query.limit;
+  
+  UserExercise.find({}, function(err, docs) {
+    res.json({ docs: docs }); // docs is an array of userExercise objects
+    
+      // const users = [];
+      // for (let doc of docs) {
+      //   users.push({
+      //     name: doc.name,
+      //     id: doc._id
+      //   });
+      // }
+      // res.json({ users: users });
+  
+  });
+
+});
 
 
 
