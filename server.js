@@ -180,7 +180,7 @@ app.post("/api/exercise/add", function (req, res) {
     duration: req.body.duration,
     date: req.body.date
   };
-  console.log("newExercise", newExercise);
+  console.log("newExercise:", newExercise);
 
   // var friend = {"firstName": req.body.fName, "lastName": req.body.lName};
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}});
@@ -195,11 +195,18 @@ app.post("/api/exercise/add", function (req, res) {
 //     done
 // );
   
+// {
+// "name": "New2",
+// "id": "5bcedb74f945f90c00f91d78"
+// }
+  
   UserExercise.findById(req.body.userId, function(err, doc) {
     
+  console.log("docStart:", doc);
     
     doc.exercises.push(newExercise);
-    doc.save(function (err) {
+    console.log("docAfterPush:", doc);
+  doc.save(function (err) {
       if (err) {return err;}
       res.json({doc: doc});
     });
