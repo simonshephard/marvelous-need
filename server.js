@@ -279,8 +279,8 @@ app.get("/api/exercise/log", function (req, res, next) {
     console.log("exercises:", docs[0].exercises);
     docs = docs[0].exercises;
     console.log("limit:", limit);    
-    if (limit) {docs = docs.limit(limit);}
-    res.json({ docs: docs });
+    if (limit) {docs = docs.slice(0, limit);}
+    res.json({docs: docs});
     
     // var people = Person.find({favoriteFoods: foodToSearch})
     // .sort({name: 'asc'})
