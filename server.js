@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 // GET all users
 // api/exercise/users with the same info as when creating a user
 
-// TODO********************************************
+// DONE********************************************
 // GET users's exercise log: GET /api/exercise/log?{userId}[&from][&to][&limit]
 // { } = required, [ ] = optional
 // from, to = dates (yyyy-mm-dd); limit = number
@@ -278,35 +278,31 @@ app.get("/api/exercise/log", function (req, res, next) {
 //https://marvelous-need.glitch.me/api/exercise/log?userId=5bcedb74f945f90c00f91d78&to=2018-10-01
 
   UserExercise.find({_id: id}, function(err, docs) {
-    console.log("exercises:", docs[0].exercises);
-    docs = docs[0].exercises;
+    var fullUser = docs[0];
+    console.log("exercises:", fullUser.exercises);
+    docs = fullUser.exercises;
     console.log("limit:", limit);    
     if (from) {docs = docs.filter((doc) => doc.date >= from)};
     if (to) {docs = docs.filter((doc) => doc.date <= to)};
     if (limit && limit < docs.length) {docs = docs.slice(0, limit);}
-    res.json({docs: docs});
     
-    // var people = Person.find({favoriteFoods: foodToSearch})
-    // .sort({name: 'asc'})
-    // .limit(2)
-    // .select('-age')
-    // .exec(function(err, data) {
-    //   if (err) {
-    //     return done(err);
-    //   } else {
-    //     return done(null, data);
-    //   }
-    // });
+    // Unformatted version of exercise data
+    // res.json({docs: docs});
+    // Formatted version of data
+    const exercises = [];
+    for (let exercise of docs) {
+      exercises.push({
+        description: exercise.description,
+        duration: exercise.duration,
+        date: exercise.date
+      });
+    }
+    res.json({
+      name: fullUser.name,
+      exercise_count: exercises.length,
+      exercises: exercises
+    });
 
-    // const users = [];
-    // for (let doc of docs) {
-    //   users.push({
-    //     name: doc.name,
-    //     id: doc._id
-    //   });
-    // }
-    // res.json({ users: users });
-  
   });
 
 });
