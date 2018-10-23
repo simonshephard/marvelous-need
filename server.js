@@ -184,14 +184,14 @@ app.post("/api/exercise/add", function (req, res) {
   
   
   // THIS FAILS - problem with $push
-  // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
+  UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, {new: true}, function(err, doc) {
   
   // THIS SUCCEEDS BUT REPLACES EXERCISE INSTEAD OF ADDING
-  // UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: newExercise}, function(err, doc) {
-  //   if(err) {console.log(err);}
-  //   console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
-  //   res.json(doc);
-  // });
+  // UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: newExercise}, {new: true}, function(err, doc) {
+    if(err) {console.log(err);}
+    console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
+    res.json(doc);
+  });
   
   // THIS FAILS - DOES NOT UPDATE AND DOES NOT RETURN
   // UserExercise.update({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
@@ -200,16 +200,16 @@ app.post("/api/exercise/add", function (req, res) {
   //   res.json(doc);
   // });
 
-  UserExercise.findOne({_id: req.body.userId}, function(err, doc) {
-    if(err) {console.log(err);}
-    console.log("docBeforeUpdate:", doc);
-    console.log("test:", doc.exercises);
-    doc.exercises.push(newExercise);
-    // doc.save();
-    doc.update();
-    console.log("docAfterSave:", doc);
-    res.json(doc);
-  });
+  // UserExercise.findOne({_id: req.body.userId}, function(err, doc) {
+  //   if(err) {console.log(err);}
+  //   console.log("docBeforeUpdate:", doc);
+  //   console.log("test:", doc.exercises);
+  //   doc.exercises.push(newExercise);
+  //   // doc.save();
+  //   doc.update();
+  //   console.log("docAfterSave:", doc);
+  //   res.json(doc);
+  // });
 
   
 

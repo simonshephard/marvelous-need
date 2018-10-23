@@ -7,9 +7,9 @@ var Schema = mongoose.Schema;
 var userExerciseSchema = new Schema({
   name: {type: String, required: true},
   exercises: [{
-      description: String,
-      duration: String,
-      date: String
+      description: {type: String, required: true},
+      duration: {type: String, required: true},
+      date: {type: String, required: false}
     }]
 });
 var userExerciseModel = mongoose.model('userExercise', userExerciseSchema);
