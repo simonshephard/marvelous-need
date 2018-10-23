@@ -186,7 +186,13 @@ app.post("/api/exercise/add", function (req, res) {
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
   
   // THIS SUCCEEDS BUT REPLACES EXERCISE INSTEAD OF ADDING
-  UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: newExercise}, function(err, doc) {
+  // UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: newExercise}, function(err, doc) {
+  //   if(err) {console.log(err);}
+  //   console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
+  //   res.json(doc);
+  // });
+  
+  UserExercise.update({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
     if(err) {console.log(err);}
     console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
     res.json(doc);
