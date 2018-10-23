@@ -180,8 +180,23 @@ app.post("/api/exercise/add", function (req, res, next) {
     duration: req.body.duration,
     date: req.body.date
   };
-  UserExercise.findById(req.body.userId, function(err, doc) {
-    doc.exercises.push(newExercise);
+
+  // var friend = {"firstName": req.body.fName, "lastName": req.body.lName};
+  UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}});
+
+// person.friends.push(friend);
+// person.save(done);
+
+// PersonModel.update(
+//     { _id: person._id }, 
+//     { $push: { friends: friend } },
+//     done
+// );
+  
+//   UserExercise.findById(req.body.userId, function(err, doc) {
+    
+    
+//     doc.exercises.push(newExercise);
     // res.json({doc: doc});
 
 // {
@@ -205,10 +220,10 @@ app.post("/api/exercise/add", function (req, res, next) {
     // doc.save();
     // res.json({doc: doc});
     // doc.save(function(err, doc) {
-    doc.save(function(err, updatedDoc){
+    // doc.save(function(err, updatedDoc){
       // if (err) {return err;}
-      res.json({updatedDoc: updatedDoc});
-    });
+    //   res.json({updatedDoc: updatedDoc});
+    // });
     // var promise = doc.save();
     // promise.then(function(doc) {
     //   res.json({updatedDoc: doc});
@@ -219,7 +234,7 @@ app.post("/api/exercise/add", function (req, res, next) {
       //   id: saved._id,
       //   exercises: saved.exercises
       // });
-  });
+//   });
 
     
 });
