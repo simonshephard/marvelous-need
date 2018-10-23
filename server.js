@@ -200,11 +200,13 @@ app.post("/api/exercise/add", function (req, res) {
   //   res.json(doc);
   // });
 
-  UserExercise.find({_id: req.body.userId}, function(err, doc) {
+  UserExercise.findOne({_id: req.body.userId}, function(err, doc) {
     if(err) {console.log(err);}
-    console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
+    console.log("docBeforeUpdate:", doc);
+    console.log("test:", doc.exercises);
     doc.exercises.push(newExercise);
-    doc.save();
+    // doc.save();
+    doc.update();
     console.log("docAfterSave:", doc);
     res.json(doc);
   });
