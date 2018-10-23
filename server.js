@@ -182,7 +182,8 @@ app.post("/api/exercise/add", function (req, res, next) {
   };
 
   // var friend = {"firstName": req.body.fName, "lastName": req.body.lName};
-  UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}});
+  // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}});
+  UserExercise.update({_id: req.body.userId}, {$push: {exercises: newExercise}});
 
 // person.friends.push(friend);
 // person.save(done);
