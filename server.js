@@ -121,7 +121,7 @@ app.get("/api/exercise/users", function (req, res, next) {
 // posting form data userId(_id), description, duration, and optionally date to /api/exercise/add. If no date supplied it will use current date.
 // Returned will the the user object with also with the exercise fields added.
 
-app.post("/api/exercise/add", function (req, res, next) {
+app.post("/api/exercise/add", function (req, res) {
   
   // 1. first just return posted information back
   // res.json({ reqBody: req.body });
@@ -180,6 +180,7 @@ app.post("/api/exercise/add", function (req, res, next) {
     duration: req.body.duration,
     date: req.body.date
   };
+  console.log("newExercise", newExercise);
 
   // var friend = {"firstName": req.body.fName, "lastName": req.body.lName};
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}});
@@ -202,6 +203,8 @@ app.post("/api/exercise/add", function (req, res, next) {
       if (err) {return err;}
       res.json({doc: doc});
     });
+  
+  });
     
 
 // {
