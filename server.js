@@ -178,12 +178,9 @@ app.post("/api/exercise/add", function (req, res) {
   // 5. same but also save and use current date if none supplied
   console.log("req.body.date:", req.body.date);
   let date = new Date();  
-  if (req.body.date) {
-    date = new Date(req.body.date);
-  } // use current if invalid 
-  
-  let date = new Date(req.body.date);
-  console.log("date:", date);
+  if (req.body.date) {date = new Date(req.body.date);} // today's date if empty
+  if (isNaN(date)) {date = new Date();} // today's date if NaN
+  // console.log("date:", date);
   
   var d = date.getDate();
   console.log("d:", d);
@@ -192,7 +189,6 @@ app.post("/api/exercise/add", function (req, res) {
   var y = date.getFullYear();
   console.log("y:", y);
   let dateString = '' + y + '-' + (m<10 ? '0'+m : m) + '-' + (d<10 ? '0'+d : d);
-  
   
   
   const newExercise = {
