@@ -176,7 +176,6 @@ app.post("/api/exercise/add", function (req, res) {
   //   res.json(doc);    
   // });
 
-  // user: 5bcedb74f945f90c00f91d78
   
   // 5. same but also save and use current date if none supplied
   console.log("req.body.date:", req.body.date);
@@ -267,22 +266,37 @@ app.post("/api/exercise/add", function (req, res) {
 // Return will be the user object with added array log and count (total exercise count).
 
 app.get("/api/exercise/log", function (req, res, next) {
-  var userId = req.query.userId;
   var from = req.query.from;
   var to = req.query.to;
   var limit = req.query.limit;
+
+// userForTesting: 5bcedb74f945f90c00f91d78
+//https://marvelous-need.glitch.me/api/exercise/log?userId=5bcedb74f945f90c00f91d78
   
-  UserExercise.find({}, function(err, docs) {
-    res.json({ docs: docs }); // docs is an array of userExercise objects
+  UserExercise.find({_id: req.query.userId}, function(err, docs) {
+    res.json({ docs: docs });
+    var 
     
-      // const users = [];
-      // for (let doc of docs) {
-      //   users.push({
-      //     name: doc.name,
-      //     id: doc._id
-      //   });
-      // }
-      // res.json({ users: users });
+    // var people = Person.find({favoriteFoods: foodToSearch})
+    // .sort({name: 'asc'})
+    // .limit(2)
+    // .select('-age')
+    // .exec(function(err, data) {
+    //   if (err) {
+    //     return done(err);
+    //   } else {
+    //     return done(null, data);
+    //   }
+    // });
+
+    // const users = [];
+    // for (let doc of docs) {
+    //   users.push({
+    //     name: doc.name,
+    //     id: doc._id
+    //   });
+    // }
+    // res.json({ users: users });
   
   });
 
