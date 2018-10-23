@@ -181,7 +181,8 @@ app.post("/api/exercise/add", function (req, res) {
     date: req.body.date
   };
   console.log("newExercise:", newExercise);
-
+  
+  
   // THIS FAILS - problem with $push
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
   
@@ -198,6 +199,15 @@ app.post("/api/exercise/add", function (req, res) {
   //   console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
   //   res.json(doc);
   // });
+
+  UserExercise.find({_id: req.body.userId}, function(err, doc) {
+    if(err) {console.log(err);}
+    console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
+    doc.exercises.push(newExercise);
+    doc.save();
+    console.log("docAfterSave:", doc);
+    res.json(doc);
+  });
 
   
 
