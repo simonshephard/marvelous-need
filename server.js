@@ -174,8 +174,10 @@ app.post("/api/exercise/add", function (req, res) {
   // });
 
   
-  // *******DATE************
-  // 5. same but also save
+  // 5. same but also save and use current date if none supplied
+  let dateValue = todaysdate.
+  if (req.body.date == "") {
+  }
   const newExercise = {
     description: req.body.description,
     duration: req.body.duration,
@@ -221,7 +223,22 @@ app.post("/api/exercise/add", function (req, res) {
     UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: doc.exercises}, {new: true}, function(err, updatedDoc) {
       if(err) {console.log("err:", err);}
       console.log("updatedAndSaved?:", updatedDoc);
-      res.json(updatedDoc);
+      // Unformatted data
+      // res.json(updatedDoc);
+      // Formatted version of data
+      const exercises = [];
+      for (let exercise of updatedDoc.exercises) {
+        exercises.push({
+          description: exercise.description,
+          duration: exercise.duration,
+          date: exercise.date
+        });
+      }
+      res.json({
+        name: updatedDoc.name,
+        exercises: exercises
+      });
+
     });
 
   });    
