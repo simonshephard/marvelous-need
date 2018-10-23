@@ -197,7 +197,7 @@ app.post("/api/exercise/add", function (req, res) {
   // THIS FAILS - DOES NOT UPDATE AND DOES NOT RETURN
   // UserExercise.update({_id: req.body.userId}, {$push: {exercises: newExercise}}, function(err, doc) {
   //   if(err) {console.log(err);}
-  //   console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
+  //   console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE UNLESS SPECIFY NEW
   //   res.json(doc);
   // });
 
@@ -205,13 +205,19 @@ app.post("/api/exercise/add", function (req, res) {
     if(err) {console.log(err);}
     console.log("docBeforeUpdate:", doc);
     console.log("retreived:", doc.exercises);
-    var updated = doc.exercises.push(newExercise);
-    console.log("updated:", updated);
+    doc.exercises.push(newExercise);
+    console.log("updated:", doc);
     // doc.save();
     // doc.update();
-    UserExercise.update({_id: req.body.userId}, {exercises: updated});
-    console.log("docAfterSave:", doc);
-    res.json(doc);
+    // UserExercise.update({_id: req.body.userId}, {exercises: doc});
+    // console.log("docAfterSave:", doc);
+    // res.json(doc);
+    
+    UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: doc}, {new: true}, function(err, updatedDoc) {
+      if(err) {console.log("err:", err);}
+      res.json(updatedDoc);
+    });
+
   });
 
   
