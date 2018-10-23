@@ -5,13 +5,12 @@ mongoose.connect(process.env.MLAB_URI);
 // set up schema
 var Schema = mongoose.Schema;
 var userExerciseSchema = new Schema({
-  name: {type: String,
-         required: true},
+  name: {type: String, required: true},
   exercises: [{
-    description: String,
-    duration: String,
-    date: String
-  }]
+      description: String,
+      duration: String,
+      date: String
+    }]
 });
 var userExerciseModel = mongoose.model('userExercise', userExerciseSchema);
 // NOTE: I beleive that the first param here should be singular
