@@ -173,15 +173,24 @@ app.post("/api/exercise/add", function (req, res) {
   //   res.json(doc);    
   // });
 
+  // user: 5bcedb74f945f90c00f91d78
   
   // 5. same but also save and use current date if none supplied
-  let dateValue = todaysdate();
-  if (req.body.date) {dateValue = req.body.date;}
+  let date = new Date(req.body.date);
+  if (!date) {date = new Date();} // use current if invalid
+  
+  var d = date.getDate();
+  var m = date.getMonth() + 1; //Month from 0 to 11
+  var y = date.getFullYear();
+  return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+  let dateString = date.getFullYear()
+  
+  
   
   const newExercise = {
     description: req.body.description,
     duration: req.body.duration,
-    date: req.body.date
+    date: date.format("yyyy-mm-dd")
   };
   console.log("newExercise:", newExercise);
   
