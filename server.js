@@ -184,11 +184,11 @@ app.post("/api/exercise/add", function (req, res) {
   
   
   // THIS FAILS - problem with $push
-  UserExercise.findOneAndUpdate({_id: req.body.userId}, {$push: {exercises: newExercise}}, {new: true}, function(err, doc) {
+  UserExercise.findOneAndUpdate({_id: req.body.userId}, {"$push": {exercises: newExercise}}, {new: true}, function(err, doc) {
   
   // THIS SUCCEEDS BUT REPLACES EXERCISE INSTEAD OF ADDING
   // UserExercise.findOneAndUpdate({_id: req.body.userId}, {exercises: newExercise}, {new: true}, function(err, doc) {
-    if(err) {console.log(err);}
+    if(err) {console.log("err:", err);}
     console.log("docBeforeUpdate:", doc);  // UPDATE METHOD WORKS BUT THIS DOC IS THE ONE PRIOR TO UPDATE
     res.json(doc);
   });
