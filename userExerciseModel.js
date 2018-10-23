@@ -19,30 +19,7 @@ var userExerciseSchema = new Schema({
   }]
 });
 var userExerciseModel = mongoose.model('userExercise', userExerciseSchema);
-// NOTE: I beleive that the first param here should be singular
+// NOTE: I believe that the first param here should be singular
 // database collection will be plural lowercase - here database became "userexercises"
 
-
-// NEED TO SOLVE ASYNCHRONICITY BEFORE USING FUNCTIONS INDIRECTLY TO GET DATA******
-var getAllDocs = function() {
-  userExerciseModel.find({}, function(err, docs) {
-    return docs;
-  });
-};
-var getAllUsers = function() {
-  var docs = getAllDocs();
-  var users = [];
-  for (let doc in docs) {
-      users.push({
-        name: doc.name,
-        id: doc._id
-      });
-  }
-  return users;
-};
-
-
-
 exports.UserExercise = userExerciseModel;
-exports.getAllDocs = getAllDocs;
-exports.getAllUsers = getAllUsers;

@@ -19,20 +19,23 @@ app.get('/', (req, res) => {
 });
 
 
-// TODO********************************************
-
+// DONE********************************************
 // Create a New User
 // POST /api/exercise/new-user
 // returned will be an object with username and _id
 
+// DONE********************************************
 // Add exercises
 // POST /api/exercise/add
-// posting form data userId(_id), description, duration, and optionally date to /api/exercise/add. If no date supplied it will use current date.
+// posting form data userId(_id), description, duration, and optionally date to /api/exercise/add.
+// If no date supplied it will use current date.
 // Returned will the the user object with also with the exercise fields added.
 
+// DONE********************************************
 // GET all users
 // api/exercise/users with the same info as when creating a user
 
+// TODO********************************************
 // GET users's exercise log: GET /api/exercise/log?{userId}[&from][&to][&limit]
 // { } = required, [ ] = optional
 // from, to = dates (yyyy-mm-dd); limit = number
@@ -181,7 +184,6 @@ app.post("/api/exercise/add", function (req, res) {
   if (req.body.date) {date = new Date(req.body.date);} // today's date if empty
   if (isNaN(date)) {date = new Date();} // today's date if NaN
   // console.log("date:", date);
-  
   var d = date.getDate();
   console.log("d:", d);
   var m = date.getMonth() + 1;
@@ -254,9 +256,8 @@ app.post("/api/exercise/add", function (req, res) {
 
     });
 
-  });    
+  });
   
-    
 });
 
 
