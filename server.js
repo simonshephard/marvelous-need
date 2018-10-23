@@ -84,8 +84,7 @@ app.post("/api/exercise/new-user", function (req, res, next) {
   
   // 4. same but just provides required {name, _id}
   var userExercise = new UserExercise({
-    name: req.body.username,
-    exercises: []
+    name: req.body.username
   });
   userExercise.save();
   res.json({
